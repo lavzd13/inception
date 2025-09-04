@@ -28,10 +28,6 @@ evalclean:
 	@docker network rm inception
 	@echo "\033[38;5;226mPerformed cleanup from evaluation sheet\033[0m"
 
-echo:
-	@echo "\033[38;5;46mFor complete cleanup please remove all contents of persisten storage at \033[1;38;5;196m$(HOME_DIR)/data/mariadb\033[0m \033[38;5;226mand \033[1;38;5;196m$(HOME_DIR)/data/wordpress\033[0m"
-
-
 fclean: down clean
 	@docker volume rm $(shell docker volume ls -q)
 	@echo "\033[38;5;226mFor complete cleanup please remove all contents of persisten storage at \033[1;38;5;196m$(HOME_DIR)/data/mariadb\033[0m \033[38;5;226mand \033[1;38;5;196m$(HOME_DIR)/data/wordpress\033[0m"
