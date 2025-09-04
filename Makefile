@@ -1,5 +1,5 @@
 HOME_DIR := $(shell echo $$HOME)
-DOCKER_COMPOSE = docker-compose.yml
+DOCKER_COMPOSE = srcs/docker-compose.yml
 
 all: prepare
 	docker compose -f $(DOCKER_COMPOSE) up --build -d
