@@ -1,12 +1,14 @@
 #!/bin/bash
-set -e
 
-cat > /tmp/init.sql <<EOF
-CREATE DATABASE IF NOT EXISTS ${MARIADB_NAME};
-CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${MARIADB_NAME}.* TO '${MARIADB_USER}'@'%';
-FLUSH PRIVILEGES;
-CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';
+if [ ! -d "${DATADIR}/mysql" ]; then
+	cat > /tmp/init.sql <<EOF
+	CREATE DATABASE IF NOT EXISTS ${MARIADB_NAME};
+	CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';
+	GRANT ALL PRIVILEGES ON ${MARIADB_NAME}.* TO '${MARIADB_USER}'@'%';
+	FLUSH PRIVILEGES;
+	CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';
 EOF
-
-exec mysqld_safe --init-file=/tmp/init.sql
+	exec mysqld_safe --init-file=/tmp/init.sql
+else
+	exec mysqld_safe
+fi
