@@ -1,4 +1,3 @@
-# Start from a lightweight Linux base
 FROM debian:bookworm
 
 RUN apt -y update && apt install -y nginx && apt install openssl -y
